@@ -10,7 +10,7 @@ import {
 import Button from './Button';
 import HorizontalList from './HorizontalList';
 
-const FlatListHeader = () => {
+const FlatListHeader = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -38,7 +38,7 @@ const FlatListHeader = () => {
           source={require('../../assets/Group_4032.png')}
         />
       </View>
-      <Button />
+      <Button onPress={() => navigation.navigate('SendData')} />
       <View style={styles.containerText}>
         <Text style={[styles.text, styles.smallText]}>SOMOS EL BRAZO</Text>
         <Text style={[styles.text, styles.smallText]}>
@@ -70,7 +70,7 @@ const FlatListHeader = () => {
           source={require('../../assets/Group_4040.png')}
         />
       </View>
-      <Button />
+      <Button onPress={() => navigation.navigate('SendData')} />
 
       <View style={styles.containerText}>
         <Text style={[styles.text, styles.smallText]}>
