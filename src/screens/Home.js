@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,124 +8,35 @@ import {
   Dimensions,
   StyleSheet,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import FlastListFooter from '../components/FlatListFooter';
 import FlatListHeader from '../components/FlatListHeader';
 
 const Home = (props) => {
-  console.log('PROPS => ', props);
-  const data = [
-    {
-      name: 'juan miguel bourges',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'luis felipe ayala',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'laura susana yankelevich',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'álvaro amigo',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'carlos alberto moncada',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'josé álvaro medina',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'maría lucinda granados',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'jesús reyes',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'héctor gerardo rodríguez',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'josefina maría cetina',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'maría dolores moreno',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'manuel yankelevich',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'jorge piña',
-      area: 'Back-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'erick aguirre',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-    {
-      name: 'paloma urrutia',
-      area: 'Back-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'mario arturo rivera',
-      area: 'Back-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'josé álvaro ramírez',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'patricia rivero',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'celia mercedes jiménez',
-      area: 'UX Designer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'carlos alfonso tovar',
-      area: 'Back-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/1.png',
-    },
-    {
-      name: 'maría isabel uscanga',
-      area: 'Back-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/3.png',
-    },
-    {
-      name: 'rafael martínez',
-      area: 'Front-end developer',
-      photograph: 'https://morning-hamlet-18619.herokuapp.com/images/2.png',
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [respError, setRespError] = useState(false);
+  const [data, setData] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
+  useEffect(() => {
+    if (firstRender) {
+      getData();
+    }
+  }, []);
+  const getData = async () => {
+    setFirstRender(false);
+    try {
+      const url = 'https://morning-hamlet-18619.herokuapp.com/api/v1/names';
+      const resp = await axios.get(url);
+      console.log('RESP PEOPLE => ', resp);
+      setLoading(false);
+      setData(resp.data);
+    } catch (error) {
+      setLoading(false);
+      setRespError(true);
+    }
+  };
+
   return (
     <ImageBackground
       source={require('../../assets/flipMask.png')}
@@ -133,6 +45,15 @@ const Home = (props) => {
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={<FlatListHeader navigation={props.navigation} />}
         data={data}
+        ListEmptyComponent={
+          loading ? (
+            <ActivityIndicator size={'large'} color={'#F14D32'} />
+          ) : respError ? (
+            <Text style={styles.text}>Error al traer los datos</Text>
+          ) : (
+            <Text style={styles.text}>Parece que no tenemos equipo.</Text>
+          )
+        }
         renderItem={({item, index}) => {
           return (
             <View style={styles.card}>
@@ -183,6 +104,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'normal',
+  },
+  text: {
+    alignSelf: 'center',
+    color: '#F14D32',
   },
 });
 

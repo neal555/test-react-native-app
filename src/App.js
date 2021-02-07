@@ -6,6 +6,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, View, Dimensions} from 'react-native';
 import Home from './screens/Home';
 import SendDataScren from './screens/SendDataScreen';
+import LastScreen from './screens/LastScreen';
 
 const Stack = createStackNavigator();
 const {width, height} = Dimensions.get('window');
@@ -22,6 +23,7 @@ const App: () => React$Node = () => {
               }}>
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="SendData" component={SendDataScren} />
+              <Stack.Screen name="LastScreen" component={LastScreen} />
             </Stack.Navigator>
           </View>
         </SafeAreaView>

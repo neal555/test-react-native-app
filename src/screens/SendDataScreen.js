@@ -9,14 +9,78 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import FlastListFooter from '../components/FlatListFooter';
+import DataForm from '../components/DataForm';
+import CellphoneForm from '../components/CellphoneForm';
+import axios from 'axios';
+import ModalAlert from '../components/ModalAlert';
 
 const SendDataScren = (props) => {
   const [firstStepDone, setFirstStepDone] = useState(false);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [cellphone, setCellphone] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [respError, setRespError] = useState(false);
+  const [count, setCount] = useState(0);
+  const returnData = (name, lastName) => {
+    setFirstname(name);
+    setLastname(lastName);
+    setFirstStepDone(true);
+    console.log('IN SCREEN', name, lastName);
+  };
+  const returnNumber = (number) => {
+    setCellphone(number);
+    setLoading(true);
+    console.log('NUMBER => ', number);
+    submit();
+  };
+
+  const submit = async () => {
+    console.log('ya paso aqui');
+    try {
+      const url = 'https://morning-hamlet-18619.herokuapp.com/api/v1/form';
+      const body = {
+        firstname,
+        lastname,
+        cellphone,
+      };
+      const headers = {
+        'Content-Type': 'appication/json',
+      };
+      const resp = await axios.post(url, body, headers);
+      if (resp.data.success) {
+        props.navigation.navigate('LastScreen');
+      }
+      console.log('RESP=>', resp);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setRespError(true);
+    }
+  };
+
+  const onRetry = () => {
+    setRespError(false);
+    setCount(count + 1);
+    if (count < 3) {
+      setLoading(true);
+      submit();
+    } else {
+      props.navigation.navigate('LastScreen');
+    }
+  };
+
   return (
     <ImageBackground
       source={require('../../assets/Mask.png')}
       style={styles.imageBg}>
       <ScrollView style={styles.scroll}>
+        <ModalAlert
+          visible={respError}
+          onCancel={() => setRespError(false)}
+          onRetry={() => onRetry()}
+        />
         <View style={styles.main}>
           <View style={styles.logoContainer}>
             <Image
@@ -54,7 +118,11 @@ const SendDataScren = (props) => {
               ]}
             />
           </View>
-          {/* AQUI VA EL FORM */}
+          {firstStepDone ? (
+            <CellphoneForm returnData={returnNumber} loading={loading} />
+          ) : (
+            <DataForm returnData={returnData} />
+          )}
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
@@ -129,7 +197,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    height: 500,
+    width: '100%',
+    height: 400,
     resizeMode: 'contain',
   },
 });
