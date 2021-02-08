@@ -11,13 +11,28 @@ import Button from './basic/Button';
 import Logo from './basic/Logo';
 import HorizontalList from './HorizontalList';
 
+const {width} = Dimensions.get('screen');
 const Header = (props) => {
   const [positionY, setPositionY] = useState(0);
+  const [dotIndex, setDotIndex] = useState(0);
+  const [dotsArray, setDotsArray] = useState([]);
 
   const onLayout = (e) => {
     setPositionY(e.nativeEvent.layout.y);
   };
 
+  const onsScrollHorizontalList = (offset) => {
+    if (Number.isInteger(offset / width)) {
+      setDotIndex(offset / width);
+    }
+  };
+  const horizontalListLength = (length) => {
+    let dots = [];
+    for (let i = 0; i < length; i++) {
+      dots.push({indexItem: i});
+    }
+    setDotsArray(dots);
+  };
   return (
     <View style={styles.container}>
       <Logo />
@@ -61,7 +76,26 @@ const Header = (props) => {
         </Text>
       </View>
 
-      <HorizontalList />
+      <HorizontalList
+        onScroll={onsScrollHorizontalList}
+        horizontalLength={horizontalListLength}
+      />
+      <View style={styles.dotsContainer}>
+        {dotsArray.map((item, index) => {
+          return (
+            <View
+              key={index.toString()}
+              style={[
+                styles.dot,
+                {
+                  backgroundColor:
+                    item.indexItem === dotIndex ? '#F14D32' : 'white',
+                },
+              ]}
+            />
+          );
+        })}
+      </View>
 
       <View style={styles.containerText}>
         <Text style={[styles.text, styles.smallText]}>TE ENCANTARA</Text>
@@ -94,7 +128,6 @@ const Header = (props) => {
     </View>
   );
 };
-const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   horizontalList: {
     flexDirection: 'row',
@@ -148,6 +181,20 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 28,
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    marginTop: '5%',
+    width,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dot: {
+    width: 20,
+    height: 20,
+    marginHorizontal: 3,
+    borderRadius: 10,
   },
 });
 

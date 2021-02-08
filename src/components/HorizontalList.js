@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   Image,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Row from './basic/Row';
 
-const HorizontalList = () => {
+const HorizontalList = (props) => {
   const firstBody = (
     <View>
       <Row>
@@ -95,18 +95,17 @@ const HorizontalList = () => {
     require('../../assets/Group_4035.png'),
     require('../../assets/Group_4037.png'),
   ];
-  // const onLayout = (e) => {
-  //   const layout = {
-  //     width: e.nativeEvent.layout.width,
-  //     height: e.nativeEvent.layout.height,
-  //     x: e.nativeEvent.layout.x,
-  //     y: e.nativeEvent.layout.y,
-  //   };
-  //   console.log('LAYOUT => ', layout);
-  // };
+
+  useEffect(() => {
+    props.horizontalLength(data.length);
+  }, []);
+
+  const handleScroll = (event) => {
+    props.onScroll(event.nativeEvent.contentOffset.x);
+  };
 
   return (
-    <ScrollView horizontal pagingEnabled>
+    <ScrollView horizontal pagingEnabled onScroll={handleScroll}>
       {data.map((item, index) => {
         const source = images[index];
         return (
