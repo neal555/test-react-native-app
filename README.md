@@ -8,7 +8,7 @@ Instructions to run this project.
 
     $   yarn install
 
-1.5 if you are using ios you need to
+1.5 if you are using ios you need to run
 
     $   npx pod-install ios
 
