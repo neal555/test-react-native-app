@@ -38,15 +38,18 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: '1%',
     width: '100%',
+    height: 50,
     backgroundColor: 'white',
     flexDirection: 'row',
     borderRadius: 5,
     overflow: 'hidden',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: '2%',
   },
   input: {
     width: '90%',
+    height: '100%',
   },
   inputIcon: {
     alignItems: 'center',
