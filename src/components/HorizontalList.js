@@ -7,22 +7,87 @@ import {
   Text,
   View,
 } from 'react-native';
+import Row from './basic/Row';
 
 const HorizontalList = () => {
+  const firstBody = (
+    <View>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Estrategia</Text> Digital
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          Big Data y<Text style={styles.bold}> Analysis</Text>
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Consultoria</Text> Tecnológica
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Reducción</Text> de costos TI
+        </Text>
+      </Row>
+    </View>
+  );
+  const secondBody = (
+    <View>
+      <Row>
+        <Text style={styles.cardBody}>
+          Inovación
+          <Text style={styles.bold}> y Creación Tecnologica</Text>
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>UX / UI</Text>
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Innovación</Text>
+        </Text>
+      </Row>
+    </View>
+  );
+
+  const thirdBody = (
+    <View>
+      <Row>
+        <Text style={styles.cardBody}>
+          Dessarrollo Tecnológico
+          <Text style={styles.bold}> y Creación Tecnológica</Text>
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Ciberseguridad</Text>
+        </Text>
+      </Row>
+      <Row>
+        <Text style={styles.cardBody}>
+          <Text style={styles.bold}>Servicios de la Nuve</Text>
+        </Text>
+      </Row>
+    </View>
+  );
+
   const data = [
     {
       title: 'IMAGINA',
-      body:
-        '• Estrategia Digital\n• Big Data y Analysis\n• Consultoria Tecnológica\n• Reduccion de costos TI',
+      body: firstBody,
     },
     {
       title: 'EXPLORA',
-      body: '• Inovación y Creación Tecnologica\n• UX / UI\n•Inovación',
+      body: secondBody,
     },
     {
       title: 'CONQUISTA',
-      body:
-        '• Dessarrollo Tecnológico y Creación Tecnológica \n• Ciberseguridad\n• Servicios de la Nuve',
+      body: thirdBody,
     },
   ];
   const images = [
@@ -30,8 +95,18 @@ const HorizontalList = () => {
     require('../../assets/Group_4035.png'),
     require('../../assets/Group_4037.png'),
   ];
+  // const onLayout = (e) => {
+  //   const layout = {
+  //     width: e.nativeEvent.layout.width,
+  //     height: e.nativeEvent.layout.height,
+  //     x: e.nativeEvent.layout.x,
+  //     y: e.nativeEvent.layout.y,
+  //   };
+  //   console.log('LAYOUT => ', layout);
+  // };
+
   return (
-    <ScrollView horizontal centerContent>
+    <ScrollView horizontal pagingEnabled>
       {data.map((item, index) => {
         const source = images[index];
         return (
@@ -44,7 +119,7 @@ const HorizontalList = () => {
                 <View style={styles.largeLine}></View>
               </View>
               <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.cardBody}>{item.body}</Text>
+              <View style={styles.bodyContainer}>{item.body}</View>
             </View>
           </View>
         );
@@ -62,7 +137,7 @@ const styles = StyleSheet.create({
     width: '95%',
     height: 500,
     marginHorizontal: '2.5%',
-    paddingHorizontal: '15%',
+    paddingHorizontal: '20%',
     alignItems: 'center',
     paddingTop: 35,
     justifyContent: 'flex-start',
@@ -82,10 +157,18 @@ const styles = StyleSheet.create({
     fontFamily: 'ArchivoBlack-Regular',
     marginBottom: 20,
   },
+  bodyContainer: {
+    width: '100%',
+    alignSelf: 'flex-start',
+  },
   cardBody: {
     color: 'white',
     fontSize: 20,
     fontWeight: 'normal',
+    alignSelf: 'flex-start',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
   lineContainer: {
     width: '65%',

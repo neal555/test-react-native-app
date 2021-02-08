@@ -15,27 +15,25 @@ import SendDataScren from './screens/SendDataScreen';
 import LastScreen from './screens/LastScreen';
 
 const Stack = createStackNavigator();
-const {width, height} = Dimensions.get('window');
+const {width, height} = Dimensions.get('screen');
 const App: () => React$Node = () => {
   return (
-    <>
-      <NavigationContainer>
-        <SafeAreaView>
-          <StatusBar hidden />
-          <View style={styles.main}>
-            <Stack.Navigator
-              initialRouteName="Home"
-              screenOptions={{
-                headerShown: false,
-              }}>
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="SendData" component={SendDataScren} />
-              <Stack.Screen name="LastScreen" component={LastScreen} />
-            </Stack.Navigator>
-          </View>
-        </SafeAreaView>
-      </NavigationContainer>
-    </>
+    <NavigationContainer>
+      <SafeAreaView>
+        <StatusBar hidden />
+        <View style={styles.main}>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="SendData" component={SendDataScren} />
+            <Stack.Screen name="LastScreen" component={LastScreen} />
+          </Stack.Navigator>
+        </View>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 

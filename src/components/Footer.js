@@ -26,11 +26,12 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     width: '100%',
-    height: 220,
+    height: 240,
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#000000',
-    paddingVertical: 25,
+    paddingTop: 25,
+    paddingBottom: 45,
   },
   text: {
     color: 'white',
