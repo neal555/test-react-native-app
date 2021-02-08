@@ -3,8 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Dimensions} from 'react-native';
-import Home from './screens/Home';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
+import HomeScreen from './screens/HomeScreen';
 import SendDataScren from './screens/SendDataScreen';
 import LastScreen from './screens/LastScreen';
 
@@ -15,13 +21,14 @@ const App: () => React$Node = () => {
     <>
       <NavigationContainer>
         <SafeAreaView>
+          <StatusBar hidden />
           <View style={styles.main}>
             <Stack.Navigator
               initialRouteName="Home"
               screenOptions={{
                 headerShown: false,
               }}>
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="SendData" component={SendDataScren} />
               <Stack.Screen name="LastScreen" component={LastScreen} />
             </Stack.Navigator>

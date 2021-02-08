@@ -4,15 +4,15 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import FlastListFooter from '../components/FlatListFooter';
+import Footer from '../components/Footer';
 import DataForm from '../components/DataForm';
 import CellphoneForm from '../components/CellphoneForm';
 import axios from 'axios';
-import ModalAlert from '../components/ModalAlert';
+import ModalAlert from '../components/basic/ModalAlert';
+import Logo from '../components/basic/Logo';
 
 const SendDataScren = (props) => {
   const [firstStepDone, setFirstStepDone] = useState(false);
@@ -26,17 +26,14 @@ const SendDataScren = (props) => {
     setFirstname(name);
     setLastname(lastName);
     setFirstStepDone(true);
-    console.log('IN SCREEN', name, lastName);
   };
   const returnNumber = (number) => {
     setCellphone(number);
     setLoading(true);
-    console.log('NUMBER => ', number);
     submit();
   };
 
   const submit = async () => {
-    console.log('ya paso aqui');
     try {
       const url = 'https://morning-hamlet-18619.herokuapp.com/api/v1/form';
       const body = {
@@ -51,10 +48,8 @@ const SendDataScren = (props) => {
       if (resp.data.success) {
         props.navigation.navigate('LastScreen');
       }
-      console.log('RESP=>', resp);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setRespError(true);
     }
@@ -82,12 +77,7 @@ const SendDataScren = (props) => {
           onRetry={() => onRetry()}
         />
         <View style={styles.main}>
-          <View style={styles.logoContainer}>
-            <Image
-              style={styles.logoImage}
-              source={require('../../assets/logo.png')}
-            />
-          </View>
+          <Logo />
           <View style={styles.indicatorContainer}>
             <View style={styles.iconContainer}>
               <Image
@@ -133,7 +123,7 @@ const SendDataScren = (props) => {
               }
             />
           </View>
-          <FlastListFooter />
+          <Footer />
         </View>
       </ScrollView>
     </ImageBackground>
@@ -152,17 +142,6 @@ const styles = StyleSheet.create({
   main: {width, alignItems: 'center'},
   scroll: {
     width,
-  },
-  logoContainer: {
-    width: '100%',
-    height: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoImage: {
-    width: 200,
-    height: 70,
-    resizeMode: 'stretch',
   },
   indicatorContainer: {
     marginTop: 20,

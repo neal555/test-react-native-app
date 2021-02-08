@@ -1,45 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Image,
   Dimensions,
-  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import Button from './Button';
+import Button from './basic/Button';
+import Logo from './basic/Logo';
 import HorizontalList from './HorizontalList';
 
-const FlatListHeader = ({navigation}) => {
+const Header = (props) => {
+  const [positionY, setPositionY] = useState(0);
+
+  const onLayout = (e) => {
+    setPositionY(e.nativeEvent.layout.y);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logoImage}
-          source={require('../../assets/logo.png')}
-        />
-      </View>
+      <Logo />
       <Text style={styles.text}>Desarrolla todo </Text>
       <Text style={[styles.text, styles.oranage]}>tu POTENCIAL</Text>
       <Text style={styles.text}>dentro del equipo</Text>
       <Text style={[styles.text, styles.oranage]}>
         ATOMIC<Text style={styles.text}>LABS</Text>
       </Text>
-      <View style={styles.seeMoreContainer}>
+
+      <TouchableOpacity
+        onPress={() => props.handleScroll(positionY - 5)}
+        style={styles.seeMoreContainer}>
         <Image
           style={styles.seeMoreIcon}
           source={require('../../assets/Group_4013.png')}
         />
         <Text style={styles.seeMoreText}>Quiero saber mas.</Text>
-      </View>
+      </TouchableOpacity>
+
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
           source={require('../../assets/Group_4032.png')}
         />
       </View>
-      <Button onPress={() => navigation.navigate('SendData')} />
-      <View style={styles.containerText}>
+
+      <Button onPress={() => props.navigation.navigate('SendData')} />
+
+      <View style={styles.containerText} onLayout={onLayout}>
         <Text style={[styles.text, styles.smallText]}>SOMOS EL BRAZO</Text>
         <Text style={[styles.text, styles.smallText]}>
           DERECHO
@@ -52,9 +60,9 @@ const FlatListHeader = ({navigation}) => {
           TECNOLOGIA
         </Text>
       </View>
-      <ScrollView horizontal>
-        <HorizontalList />
-      </ScrollView>
+
+      <HorizontalList />
+
       <View style={styles.containerText}>
         <Text style={[styles.text, styles.smallText]}>TE ENCANTARA</Text>
         <Text style={[styles.text, styles.oranage, styles.smallText]}>
@@ -64,13 +72,15 @@ const FlatListHeader = ({navigation}) => {
           CON NOSOTROS
         </Text>
       </View>
+
       <View style={styles.imageContainer}>
         <Image
           style={styles.secondImage}
           source={require('../../assets/Group_4040.png')}
         />
       </View>
-      <Button onPress={() => navigation.navigate('SendData')} />
+
+      <Button onPress={() => props.navigation.navigate('SendData')} />
 
       <View style={styles.containerText}>
         <Text style={[styles.text, styles.smallText]}>
@@ -84,11 +94,11 @@ const FlatListHeader = ({navigation}) => {
     </View>
   );
 };
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   horizontalList: {
     flexDirection: 'row',
-    width: width,
+    width,
     overflow: 'scroll',
     backgroundColor: 'red',
   },
@@ -96,17 +106,6 @@ const styles = StyleSheet.create({
     paddingTop: '3%',
     width: '100%',
     alignItems: 'center',
-  },
-  logoContainer: {
-    width: '100%',
-    height: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoImage: {
-    width: 200,
-    height: 70,
-    resizeMode: 'stretch',
   },
   text: {
     fontSize: 35,
@@ -130,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   imageContainer: {
+    marginTop: '5%',
     width: '98%',
   },
   image: {
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlatListHeader;
+export default Header;

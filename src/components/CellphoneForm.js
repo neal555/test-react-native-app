@@ -1,13 +1,7 @@
 import React, {useState} from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import FormItem from './basic/FormItem';
+import OrangeButton from './basic/OrangeButton';
 
 const CellphoneForm = (props) => {
   const [number, setNumber] = useState('');
@@ -36,6 +30,7 @@ const CellphoneForm = (props) => {
           </Text>
         </View>
       </View>
+
       <View style={styles.formContainer}>
         <Text style={styles.title}>
           Necesitamos validar tu número para continuar.
@@ -43,36 +38,23 @@ const CellphoneForm = (props) => {
         <Text style={styles.title}>
           Ingresa tu número a 10 dígitos y te enviaremos un código SMS.
         </Text>
-        <View style={styles.itemContainer}>
-          <Text style={styles.label}>Número de celular</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              value={number}
-              onChangeText={(value) => setNumber(value)}
-              editable={!props.loading}
-              keyboardType="numeric"
-              maxLength={10}
-            />
-            <Image
-              style={styles.inputIcon}
-              source={require('../../assets/lockicon.png')}
-            />
-          </View>
-          {validation && number.length !== 10 && (
-            <Text style={styles.validation}>Por favor ingrese 10 dígitos</Text>
-          )}
-        </View>
-        <TouchableOpacity
-          style={styles.button}
+
+        <FormItem
+          label="Número de celular"
+          value={number}
+          onChangeText={(value) => setNumber(value)}
+          keyboardType="numeric"
+          validation={validation}
+          minLength={10}
+          maxLength={10}
+          validationText="Por favor ingrese 10 dígitos"
+        />
+        <OrangeButton
+          disabled={props.loading}
+          loading={props.loading}
           onPress={() => returnData()}
-          disabled={props.loading}>
-          {props.loading ? (
-            <ActivityIndicator size="small" color="#ffffff" />
-          ) : (
-            <Text style={styles.textButton}>Enviar</Text>
-          )}
-        </TouchableOpacity>
+          title="Enviar"
+        />
       </View>
     </View>
   );
@@ -119,49 +101,6 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 20,
     color: 'white',
-    fontSize: 18,
-  },
-  itemContainer: {
-    marginTop: '10%',
-  },
-  label: {
-    color: 'white',
-    fontSize: 16,
-  },
-  inputContainer: {
-    marginTop: '1%',
-    width: '100%',
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    borderRadius: 5,
-    overflow: 'hidden',
-    alignItems: 'center',
-    paddingLeft: '2%',
-  },
-  input: {
-    width: '90%',
-  },
-  inputIcon: {
-    alignItems: 'center',
-    width: 20,
-    height: 25,
-  },
-  validation: {
-    color: '#F14D32',
-  },
-  button: {
-    marginTop: '10%',
-    backgroundColor: '#F14D32',
-    height: 50,
-    borderRadius: 25,
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textButton: {
-    color: 'white',
-    fontWeight: 'bold',
     fontSize: 18,
   },
 });

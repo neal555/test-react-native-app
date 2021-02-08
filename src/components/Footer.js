@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-const FlastListFooter = () => {
+const Footer = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlastListFooter;
+export default Footer;

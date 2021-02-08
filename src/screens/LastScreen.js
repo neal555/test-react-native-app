@@ -8,7 +8,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import FlastListFooter from '../components/FlatListFooter';
+import Logo from '../components/basic/Logo';
+import Footer from '../components/Footer';
 
 const LastScreen = () => {
   return (
@@ -17,12 +18,7 @@ const LastScreen = () => {
       style={styles.imageBg}>
       <ScrollView style={styles.scroll}>
         <View style={styles.main}>
-          <View style={styles.logoContainer}>
-            <Image
-              style={styles.logoImage}
-              source={require('../../assets/logo.png')}
-            />
-          </View>
+          <Logo />
 
           <View style={styles.containerText}>
             <Text style={[styles.text]}> TUS DATOS</Text>
@@ -47,7 +43,7 @@ const LastScreen = () => {
               source={require('../../assets/Group_4039.png')}
             />
           </View>
-          <FlastListFooter />
+          <Footer />
         </View>
       </ScrollView>
     </ImageBackground>
@@ -66,17 +62,6 @@ const styles = StyleSheet.create({
   main: {width, alignItems: 'center'},
   scroll: {
     width,
-  },
-  logoContainer: {
-    width: '100%',
-    height: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoImage: {
-    width: 200,
-    height: 70,
-    resizeMode: 'stretch',
   },
   imageContainer: {
     marginTop: 20,

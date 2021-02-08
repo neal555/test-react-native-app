@@ -1,5 +1,12 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const HorizontalList = () => {
   const data = [
@@ -24,40 +31,42 @@ const HorizontalList = () => {
     require('../../assets/Group_4037.png'),
   ];
   return (
-    <View style={styles.container}>
+    <ScrollView horizontal centerContent>
       {data.map((item, index) => {
         const source = images[index];
         return (
-          <View key={index.toString()} style={styles.card}>
-            <Image style={styles.cardImage} source={source} />
-            <View style={styles.lineContainer}>
-              <View style={styles.largeLine}></View>
-              <View style={styles.shortLine}></View>
-              <View style={styles.largeLine}></View>
+          <View key={index.toString()} style={styles.container}>
+            <View style={styles.card}>
+              <Image style={styles.cardImage} source={source} />
+              <View style={styles.lineContainer}>
+                <View style={styles.largeLine}></View>
+                <View style={styles.shortLine}></View>
+                <View style={styles.largeLine}></View>
+              </View>
+              <Text style={styles.cardTitle}>{item.title}</Text>
+              <Text style={styles.cardBody}>{item.body}</Text>
             </View>
-            <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.cardBody}>{item.body}</Text>
           </View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 };
 const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    width,
   },
   card: {
-    width: width * 0.95,
+    marginTop: 20,
+    width: '95%',
     height: 500,
-    marginHorizontal: width * 0.025,
-    paddingHorizontal: width * 0.15,
+    marginHorizontal: '2.5%',
+    paddingHorizontal: '15%',
     alignItems: 'center',
     paddingTop: 35,
     justifyContent: 'flex-start',
     backgroundColor: '#F14D32',
-    marginTop: 20,
     elevation: 5,
     borderRadius: 20,
   },

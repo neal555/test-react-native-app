@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import FormItem from './basic/FormItem';
+import OrangeButton from './basic/OrangeButton';
 
 const DataForm = (props) => {
   const [name, setName] = useState('');
@@ -32,53 +32,30 @@ const DataForm = (props) => {
           </Text>
         </View>
       </View>
+
       <View style={styles.formContainer}>
         <Text style={styles.title}>
           Queremos saber que eres tú, por favor ingresa los siguientes datos:
         </Text>
-        <View style={styles.itemContainer}>
-          <Text style={styles.label}>Nombre (s)</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              value={name}
-              onChangeText={(value) => setName(value)}
-              autoCapitalize={'words'}
-            />
-            <Image
-              style={styles.inputIcon}
-              source={require('../../assets/lockicon.png')}
-            />
-          </View>
-          {validation && name.length < 5 && (
-            <Text style={styles.validation}>
-              El nombre deberá tener minimo 5 caracteres
-            </Text>
-          )}
-        </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.label}>Apellidos</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              value={lastName}
-              onChangeText={(value) => setLastName(value)}
-              autoCapitalize={'words'}
-            />
-            <Image
-              style={styles.inputIcon}
-              source={require('../../assets/lockicon.png')}
-            />
-          </View>
-          {validation && lastName.length < 5 && (
-            <Text style={styles.validation}>
-              Los Apellidos deberán tener 5 caracteres como minimo
-            </Text>
-          )}
-        </View>
-        <TouchableOpacity style={styles.button} onPress={() => returnData()}>
-          <Text style={styles.textButton}>Continuar</Text>
-        </TouchableOpacity>
+        <FormItem
+          label="Nombre (s)"
+          value={name}
+          onChangeText={(value) => setName(value)}
+          autoCapitalize="words"
+          validation={validation}
+          minLength={5}
+          validationText="El nombre deberá tener minimo 5 caracteres"
+        />
+        <FormItem
+          label="Apellidos"
+          value={lastName}
+          onChangeText={(value) => setLastName(value)}
+          autoCapitalize="words"
+          validation={validation}
+          minLength={5}
+          validationText="Los Apellidos deberán tener minimo 5 caracteres"
+        />
+        <OrangeButton onPress={() => returnData()} title="Continuar" />
       </View>
     </View>
   );
@@ -124,49 +101,6 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 18,
-  },
-  itemContainer: {
-    marginTop: '10%',
-  },
-  label: {
-    color: 'white',
-    fontSize: 16,
-  },
-  inputContainer: {
-    marginTop: '1%',
-    width: '100%',
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    borderRadius: 5,
-    overflow: 'hidden',
-    alignItems: 'center',
-    paddingLeft: '2%',
-  },
-  input: {
-    width: '90%',
-  },
-  inputIcon: {
-    alignItems: 'center',
-    width: 20,
-    height: 25,
-  },
-  validation: {
-    color: '#F14D32',
-  },
-  button: {
-    marginTop: '10%',
-    backgroundColor: '#F14D32',
-    height: 50,
-    borderRadius: 25,
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textButton: {
-    color: 'white',
-    fontWeight: 'bold',
     fontSize: 18,
   },
 });

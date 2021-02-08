@@ -11,7 +11,7 @@ const Button = (props) => {
 
 const styles = StyleSheet.create({
   main: {
-    marginTop: '2%',
+    marginTop: '5%',
     width: '55%',
     height: 60,
     backgroundColor: 'white',
@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#4289B5',
+    fontWeight: 'bold',
   },
 });
 

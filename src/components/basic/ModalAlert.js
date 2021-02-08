@@ -15,7 +15,7 @@ const ModalAlert = (props) => {
           <View style={styles.header}>
             <Image
               style={styles.asset}
-              source={require('../../assets/Group_4029_2x.png')}
+              source={require('../../../assets/Group_4029_2x.png')}
             />
             <Text style={styles.title}>Ups :(</Text>
             <Text style={styles.message}>
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 20,
+    fontWeight: 'bold',
   },
   orange: {color: '#F14D32'},
   separator: {
