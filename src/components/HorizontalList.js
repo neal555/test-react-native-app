@@ -135,11 +135,12 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 20,
     width: '95%',
-    height: 500,
+    height: 515,
     marginHorizontal: '2.5%',
-    paddingHorizontal: '20%',
+    paddingHorizontal: '15%',
     alignItems: 'center',
-    paddingTop: 35,
+    paddingTop: 25,
+    paddingBottom: 25,
     justifyContent: 'flex-start',
     backgroundColor: '#F14D32',
     elevation: 5,
@@ -164,8 +165,8 @@ const styles = StyleSheet.create({
   cardBody: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'normal',
     alignSelf: 'flex-start',
+    fontWeight: '100',
   },
   bold: {
     fontWeight: 'bold',

@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginTop: 10,
   },
   leftText: {
     fontSize: 20,
